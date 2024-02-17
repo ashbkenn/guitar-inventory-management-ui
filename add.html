@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Guitar</title>
+    <style>
+        body {
+            background-color: #FFF0D1;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+        .header-left {
+            font-size: 24px;
+            width: 250px;
+            font-weight: bold;
+            color: #E28442;
+            text-decoration: none;
+        }
+        .header-right a {
+            margin-left: 20px;
+            font-size: 30px;
+            font-weight: bold;
+            text-decoration: none;
+            color: Black;
+        }
+        .form-container {
+            max-width: 900px;
+            margin-left: 50px;
+            padding: 20px;
+            background-color: transparent;
+        }
+        form {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+            align-items: center;
+        }
+        label {
+            font-weight: bold;
+            font-size: 35px;
+            text-align: left;
+            padding-right: 10px;
+        }
+        input[type="text"] {
+            padding: 15px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid black;
+            border-radius: 4px;
+            background-color: transparent;
+            font-size: 16px;
+            text-align: left;
+        }
+        input[type="submit"] {
+            /*grid-column: 2;*/
+            padding: 20px;
+            background-color: #DDCCA5;
+            color: black;
+            border: none;
+            border-radius: 11px;
+            cursor: pointer;
+            font-size: 30px;
+            font-weight: bold;
+            margin-left: auto;
+            width: 350px;
+        }
+        input[type="submit"]:hover {
+            background-color: #DDC99C;
+        }
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            padding-top: 60px;
+        }
+
+        /* Modal Content/Box */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a class="header-left" href="home.html">Guitar Inventory Management</a>
+        <div class="header-right">
+            <a href="about.html">About</a>
+            <a href="add.html">Add</a>
+            <a href="search.html">Search</a>
+        </div>
+    </div>
+    <div class="form-container">
+        <form action="/submit-guitar" method="post">
+            <label for="serialNumber">Serial number:</label>
+            <input type="text" id="serialNumber" name="serialNumber">
+
+            <label for="price">Price:</label>
+            <input type="text" id="price" name="price">
+
+            <label for="builder">Builder:</label>
+            <input type="text" id="builder" name="builder">
+
+            <label for="model">Model:</label>
+            <input type="text" id="model" name="model">
+
+            <label for="type">Type:</label>
+            <input type="text" id="type" name="type">
+
+            <label for="backWood">Back wood:</label>
+            <input type="text" id="backWood" name="backWood">
+
+            <label for="topWood">Top wood:</label>
+            <input type="text" id="topWood" name="topWood">
+
+            <div></div>
+            <input type="submit" value="Add the guitar">
+        </form>
+    </div>
+    <script>
+        function addGuitar() {
+            let guitarSerialNumberNode = document.getElementById("serialNumber");
+            let guitarSerialNumber = guitarSerialNumberNode.value;
+            let guitarPriceNode = document.getElementById("price")
+            let guitarPrice = guitarPriceNode.value;
+            let guitarBuilderNode = document.getElementById("builder");
+            let guitarBuilder = guitarBuilderNode.value;
+            let guitarModelNode = document.getElementById("model");
+            let guitarModel = guitarModelNode.value;
+            let guitarTypeNode = document.getElementById("type");
+            let guitarType = guitarTypeNode.value;
+            let guitarBackWoodNode = document.getElementById("backWood");
+            let guitarBackWood = guitarBackWoodNode.value;
+            let guitarTopWoodNode = document.getElementById("topWood");
+            let guitarTopWood = guitarTopWoodNode.value;
+
+            let guitar = {serialNumber: guitarSerialNumber, price: guitarPrice, builder: guitarBuilder, model: guitarModel, type: guitarType, backWood: guitarBackWood, topWood: guitarTopWood};
+            alert("You entered: " + JSON.stringify(guitar));
+
+        }
+    </script>
+</body>
+</html>
