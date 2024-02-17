@@ -31,6 +31,8 @@
             color: Black;
         }
         .form-container {
+            display: flex;
+            flex-direction: column;
             max-width: 900px;
             margin-left: 50px;
             padding: 20px;
@@ -74,42 +76,76 @@
         input[type="submit"]:hover {
             background-color: #DDC99C;
         }
-        .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-            padding-top: 60px;
-        }
-
-        /* Modal Content/Box */
-        .modal-content {
-            background-color: #fefefe;
-            margin: 5% auto; /* 15% from the top and centered */
+        .buttonContainer {
+            display: flex;
+            justify-content: flex-end;
             padding: 20px;
-            border: 1px solid #888;
-            width: 80%; /* Could be more or less, depending on screen size */
+            margin-right: 25px;
         }
 
-        /* The Close Button */
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
+        .addButton {
+            padding: 20px;
+            background-color: #DDCCA5;
             color: black;
-            text-decoration: none;
+            border: none;
+            border-radius: 11px;
             cursor: pointer;
+            font-size: 30px;
+            font-weight: bold;
+            width: 250px;
+        }
+        .addButton:hover {
+            background-color: #DDC99C;
+        }
+        label {
+            font-weight: bold;
+            font-size: 35px;
+            text-align: left;
+            padding-right: 100px;
+        }
+        input[type="text"] {
+            padding: 15px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid black;
+            border-radius: 4px;
+            background-color: transparent;
+            font-size: 16px;
+            text-align: left;
+            width: 100%;
+        }
+        form {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .formBox {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .addForm label {
+            margin-right: 10px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .addForm input[type="text"] {
+            flex-grow: 1;
+            margin-left: 10px;
+        }
+
+
+        .addForm {
+            display: flex;
+            flex-direction: column;
+            max-width: 1200px;
+            padding: 20px;
+            margin: 0 auto;
         }
     </style>
 </head>
@@ -122,32 +158,38 @@
             <a href="search.html">Search</a>
         </div>
     </div>
-    <div class="form-container">
-        <form action="/submit-guitar" method="post">
-            <label for="serialNumber">Serial number:</label>
+    <div class="addForm">
+        <div class="formBox">
+            <label for="serialNumber">Serial Number:</label>
             <input type="text" id="serialNumber" name="serialNumber">
-
+        </div>
+        <div class="formBox">
             <label for="price">Price:</label>
             <input type="text" id="price" name="price">
-
+        </div>
+        <div class="formBox">
             <label for="builder">Builder:</label>
             <input type="text" id="builder" name="builder">
-
+        </div>
+        <div class="formBox">
             <label for="model">Model:</label>
             <input type="text" id="model" name="model">
-
+        </div>
+        <div class="formBox">
             <label for="type">Type:</label>
             <input type="text" id="type" name="type">
-
+        </div>
+        <div class="formBox">
             <label for="backWood">Back wood:</label>
             <input type="text" id="backWood" name="backWood">
-
+        </div>
+        <div class="formBox">
             <label for="topWood">Top wood:</label>
             <input type="text" id="topWood" name="topWood">
-
-            <div></div>
-            <input type="submit" value="Add the guitar">
-        </form>
+        </div>
+    </div>
+    <div class="buttonContainer">
+        <button class="addButton" onclick="addGuitar()">Add the Guitar</button>
     </div>
     <script>
         function addGuitar() {
@@ -166,8 +208,22 @@
             let guitarTopWoodNode = document.getElementById("topWood");
             let guitarTopWood = guitarTopWoodNode.value;
 
-            let guitar = {serialNumber: guitarSerialNumber, price: guitarPrice, builder: guitarBuilder, model: guitarModel, type: guitarType, backWood: guitarBackWood, topWood: guitarTopWood};
+            let guitar = {
+                serialNumber: guitarSerialNumber,
+                price: guitarPrice,
+                builder: guitarBuilder,
+                model: guitarModel,
+                type: guitarType,
+                backWood: guitarBackWood,
+                topWood: guitarTopWood
+            };
             alert("You entered: " + JSON.stringify(guitar));
+            let storedGuitars = JSON.parse(localStorage.getItem('guitars')) || [];
+
+            storedGuitars.push(guitar);
+            localStorage.setItem('guitars', JSON.stringify(storedGuitars));
+
+            alert("Guitar added successfully!");
 
         }
     </script>
