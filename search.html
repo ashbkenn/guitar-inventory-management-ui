@@ -193,7 +193,15 @@
             let guitarTopWood = document.getElementById("topWood").value.toLowerCase();
             let table = document.getElementById("searchResult");
             table.innerHTML = "";
-            for (let guitar of guitars) {
+            
+            let backendData = JSON.parse(localStorage.getItem('guitars')) || [];
+
+            if (backendData.length === 0) {
+                alert("No matching guitars found.");
+                return;
+            }
+            
+            for (let guitar of backendData) {
                 if ((!guitarBuilder || guitar.builder.toLowerCase() == guitarBuilder) &&
                     (!guitarModel || guitar.model.toLowerCase() == guitarModel) &&
                     (!guitarType || guitar.type.toLowerCase() == guitarType) &&

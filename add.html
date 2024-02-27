@@ -208,6 +208,11 @@
             let guitarTopWoodNode = document.getElementById("topWood");
             let guitarTopWood = guitarTopWoodNode.value;
 
+            if (!guitarSerialNumber || !guitarPrice || !guitarBuilder || !guitarModel || !guitarType || !guitarBackWood || !guitarTopWood) {
+                alert("Please enter a value for all fields.");
+                return;
+            }
+
             let guitar = {
                 serialNumber: guitarSerialNumber,
                 price: guitarPrice,
@@ -217,13 +222,24 @@
                 backWood: guitarBackWood,
                 topWood: guitarTopWood
             };
+
             alert("You entered: " + JSON.stringify(guitar));
-            let storedGuitars = JSON.parse(localStorage.getItem('guitars')) || [];
+            // let storedGuitars = JSON.parse(localStorage.getItem('guitars')) || [];
 
-            storedGuitars.push(guitar);
-            localStorage.setItem('guitars', JSON.stringify(storedGuitars));
+            // storedGuitars.push(guitar);
+            // localStorage.setItem('guitars', JSON.stringify(storedGuitars));
 
-            alert("Guitar added successfully!");
+            // alert("Guitar added successfully!");
+            let isBackendSuccessful = true; // Set to false to simulate an error
+            if (isBackendSuccessful) {
+                let storedGuitars = JSON.parse(localStorage.getItem('guitars')) || [];
+                storedGuitars.push(guitar);
+                localStorage.setItem('guitars', JSON.stringify(storedGuitars));
+
+                alert("The guitar was added to the system.");
+            } else {
+                alert("Something went wrong. Please try again or contact the customer support team.");
+            }
 
         }
     </script>
