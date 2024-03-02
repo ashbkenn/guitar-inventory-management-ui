@@ -176,7 +176,10 @@
     </thead>
     <tbody id="searchResult">
     <script>
-        let guitars = JSON.parse(localStorage.getItem('guitars')) || [];
+        // let guitars = JSON.parse(localStorage.getItem('guitars')) || [];
+        let guitars = [];
+        let host = "https://hw6-ashbkenn.onrender.com";
+
         // let guitars = [
         //     { serialNumber: "AK4902", Price: 1999.99, Builder: "Fender", Model: "Stratocaster", Type: "Acoustic", backWood: "Mahogany", topWood: "Spruce"},
         //     { serialNumber: "EK1123", Price: 2999.99, Builder: "Martin", Model: "StreetMaster", Type: "Acoustic", backWood: "Sapele", topWood: "Sapele"},
@@ -185,7 +188,17 @@
         //     { serialNumber: "JK0118", Price: 5999.99, Builder: "Martin", Model: "D-18", Type: "Acoustic", backWood: "Mahogany", topWood: "Spruce"},
         //     { serialNumber: "RK1027", Price: 6999.99, Builder: "Gibson", Model: "SG Modern", Type: "Acoustic", backWood: "Mahogany", topWood: "Maple"}
         // ];
-        function search() {
+
+        async function getAll() {
+            return fetch(host + "/guitars")
+                .then(response => response.json())
+                .catch(error => {
+                    console.log(error);
+                    alert("Something went wrong!");
+                    return [];
+                });
+        }
+        async function search() {
             let guitarBuilder = document.getElementById("builder").value.toLowerCase();
             let guitarModel = document.getElementById("model").value.toLowerCase();
             let guitarType = document.getElementById("type").value.toLowerCase();
@@ -195,8 +208,9 @@
             table.innerHTML = "";
             
             let backendData = JSON.parse(localStorage.getItem('guitars')) || [];
-
+            // let backendData = [];
             if (backendData.length === 0) {
+                guitars = await getAll();
                 alert("No matching guitars found.");
                 return;
             }
@@ -248,6 +262,7 @@
                 }
             }
         }
+
     </script>
     </tbody>
 </table>

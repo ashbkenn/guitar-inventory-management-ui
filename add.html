@@ -192,7 +192,7 @@
         <button class="addButton" onclick="addGuitar()">Add the Guitar</button>
     </div>
     <script>
-        function addGuitar() {
+        async function addGuitar() {
             let guitarSerialNumberNode = document.getElementById("serialNumber");
             let guitarSerialNumber = guitarSerialNumberNode.value;
             let guitarPriceNode = document.getElementById("price")
@@ -224,24 +224,25 @@
             };
 
             alert("You entered: " + JSON.stringify(guitar));
-            // let storedGuitars = JSON.parse(localStorage.getItem('guitars')) || [];
 
-            // storedGuitars.push(guitar);
-            // localStorage.setItem('guitars', JSON.stringify(storedGuitars));
+            // let isBackendSuccessful = true;
+            // if (isBackendSuccessful) {
+            //     let storedGuitars = JSON.parse(localStorage.getItem('guitars')) || [];
+            //     storedGuitars.push(guitar);
+            //     localStorage.setItem('guitars', JSON.stringify(storedGuitars));
+            //
+            //     alert("The guitar was added to the system.");
+            // } else {
+            //     alert("Something went wrong. Please try again or contact the customer support team.");
+            // }
 
-            // alert("Guitar added successfully!");
-            let isBackendSuccessful = true; // Set to false to simulate an error
-            if (isBackendSuccessful) {
-                let storedGuitars = JSON.parse(localStorage.getItem('guitars')) || [];
-                storedGuitars.push(guitar);
-                localStorage.setItem('guitars', JSON.stringify(storedGuitars));
+            let host = "https://hw6-latest.onrender.com";
 
-                alert("The guitar was added to the system.");
-            } else {
-                alert("Something went wrong. Please try again or contact the customer support team.");
-            }
-
-        }
-    </script>
-</body>
-</html>
+            let request = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(guitar)
+            };
+           
