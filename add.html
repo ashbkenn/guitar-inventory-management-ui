@@ -156,6 +156,7 @@
             <a href="about.html">About</a>
             <a href="add.html">Add</a>
             <a href="search.html">Search</a>
+            <a href="login.html">Login</a>
         </div>
     </div>
     <div class="addForm">
@@ -236,13 +237,35 @@
             //     alert("Something went wrong. Please try again or contact the customer support team.");
             // }
 
-            let host = "https://hw6-latest.onrender.com";
+            let host = "https://hw6-latest.onrender.com"; // Update the host if needed
 
             let request = {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
                 },
-                body: JSON.stringify(guitar)
+                body: JSON.stringify(guitar),
             };
-           
+
+            try {
+                let response = await fetch(host + "/guitars/add", request);
+
+                if (response.ok) {
+                    let isBackendSuccessful = await response.json(); // Assuming your backend returns a JSON response indicating success
+                    if (isBackendSuccessful) {
+                        alert("The guitar was added to the system.");
+                    } else {
+                        alert("Something went wrong! Guitar data could not be saved.");
+                    }
+                } else {
+                    console.error(response);
+                    alert("Something went wrong! Guitar data could not be saved.");
+                }
+            } catch (error) {
+                console.error(error);
+                alert("An error occurred. Please try again.");
+            }
+        }
+    </script>
+</body>
+</html>
